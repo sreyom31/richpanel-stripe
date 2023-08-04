@@ -3,6 +3,7 @@ import userController from '../controllers/user.controller';
 import auth from '../middlewares/auth';
 import validate from '../middlewares/validation';
 import { userValidation } from '../validations';
+
 const router = Router();
 
 router

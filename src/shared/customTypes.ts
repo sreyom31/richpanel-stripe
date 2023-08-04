@@ -8,7 +8,23 @@ export type UserUpdate = {
   name?: string;
   email?: string;
   password?: string;
-  domain?: string;
-  designation?: string;
-  isEmailVerified?: boolean;
+};
+
+export type Plan = {
+  name: string;
+  monthly: number;
+  yearly: number;
+  videoQuality: string;
+  resolution: string;
+  screens: number;
+  devices: string[];
+};
+
+export type PlanUpdate = {
+  name?: string;
+  monthly?: number;
+  yearly?: number;
+  videoQuality?: string;
+  resolution?: string;
+  screens?: number;
 };
