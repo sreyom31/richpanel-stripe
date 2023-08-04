@@ -9,7 +9,7 @@ const envSchema = z.object({
   PORT: z.string().default('5000'),
   DB_URL: z
     .string()
-    .startsWith('mongodb://', { message: 'Must provide a MongoDB URL' }),
+    .startsWith('mongodb+srv://', { message: 'Must provide a MongoDB URL' }),
   JWT_SECRET: z.string(),
   JWT_ACCESS_EXPIRATION_MINUTES: z.string().default('60'),
   JWT_REFRESH_EXPIRATION_DAYS: z.string().default('15'),
@@ -44,7 +44,7 @@ export default {
     refreshExpirationDays: envVars.data.JWT_REFRESH_EXPIRATION_DAYS,
     resetPasswordExpirationMinutes:
       envVars.data.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
-    verifyEmailExpirationMinutes:
-      envVars.data.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
+    // verifyEmailExpirationMinutes:
+    //   envVars.data.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
   },
 };
