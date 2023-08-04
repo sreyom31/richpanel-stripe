@@ -14,6 +14,7 @@ const envSchema = z.object({
   JWT_ACCESS_EXPIRATION_MINUTES: z.string().default('60'),
   JWT_REFRESH_EXPIRATION_DAYS: z.string().default('15'),
   JWT_RESET_PASSWORD_EXPIRATION_MINUTES: z.string().default('20'),
+  STRIPE_SECRET_KEY: z.string(),
   // JWT_VERIFY_EMAIL_EXPIRATION_MINUTES: z.number().default(20),
 });
 
@@ -47,4 +48,5 @@ export default {
     // verifyEmailExpirationMinutes:
     //   envVars.data.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
   },
+  stripeSecretKey: envVars.data.STRIPE_SECRET_KEY,
 };
