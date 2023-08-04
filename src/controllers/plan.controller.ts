@@ -28,7 +28,7 @@ const getPlans = catchAsync(async (req: Request, res: Response) => {
     'screens',
   ]);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await planService.queryUsers(filter, options);
+  const result = await planService.queryPlans(filter, options);
   res.send(result);
 });
 
