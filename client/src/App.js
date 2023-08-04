@@ -1,4 +1,6 @@
 // import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import {
   BrowserRouter,
   Routes,
@@ -18,6 +20,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+    <ToastContainer />
   </div>
   );
 }

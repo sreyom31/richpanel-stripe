@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import axios from 'axios'
+import { toast } from 'react-toastify';
 import { signupFields } from "../constants/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
@@ -20,8 +22,21 @@ export default function Signup(){
   }
 
   //handle Signup API Integration here
-  const createAccount=()=>{
+  const createAccount= async () => {
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, signupState)
+      if(res.data) {
+        console.log(res.data);
 
+        localStorage.setItem("User", JSON.stringify(res.data.user));
+        localStorage.setItem("Token", String(res.data.tokens.access.token));
+        toast.success("Registered successfully.");
+        setSignupState(fieldsState)
+    }
+    } catch (error) {
+      console.log(error)
+      toast.error("Something went wrong.")
+    }
   }
 
     return(
@@ -46,9 +61,7 @@ export default function Signup(){
             }
           <FormAction handleSubmit={handleSubmit} text="Signup" />
         </div>
-
-         
-
       </form>
+      
     )
 }
