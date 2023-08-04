@@ -4,10 +4,13 @@
   "description": "A payment subscription system consisting of auth using stripe.",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
-    "build": "rimraf dist && swc ./src -d dist",
+    "start": "node build/index.js",
+    "build": "rimraf build && swc ./src -d build",
     "test": "yarn build && yarn start",
-    "del": "rimraf dist"
+    "dev": "tsc-watch --onSuccess \"node ./build/index.js\"",
+    "del": "rimraf build",
+    "format": "prettier --write '**/*.{js,jsx,json,ts,tsx}'",
+    "check": "prettier --check '**/*.{js,jsx,json,ts,tsx}'"
   },
   "repository": "https://github.com/sreyom31/richpanel-stripe",
   "keywords": [
