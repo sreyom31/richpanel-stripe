@@ -28,3 +28,37 @@ export type PlanUpdate = {
   resolution?: string;
   screens?: number;
 };
+
+export type payment = {
+  user: string;
+  eventId: string;
+  invoiceId: string;
+  payment_status: string;
+  amount: number;
+  currency: number;
+};
+
+export type paymentUpdate = {
+  user?: string;
+  eventId?: string;
+  invoiceId?: string;
+  payment_status?: string;
+  amount?: number;
+  currency?: number;
+};
+
+export type subscription = {
+  user: string;
+  paymentId: string;
+  planId: string;
+  active: string;
+  subscriptionId: string;
+};
+
+export type subscriptionUpdate = {
+  user?: string;
+  paymentId?: string;
+  planId?: string;
+  active?: string;
+  subscriptionId?: string;
+};
