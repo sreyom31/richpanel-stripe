@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { loginFields } from '../constants/formFields';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -11,6 +12,7 @@ let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ''));
 
 export default function Login() {
+  const navigate = useNavigate();
   const [loginState, setLoginState] = useState(fieldsState);
 
   const handleChange = (e) => {
@@ -35,7 +37,7 @@ export default function Login() {
         localStorage.setItem('User', JSON.stringify(res.data.user));
         localStorage.setItem('Token', String(res.data.tokens.access.token));
         toast.success('Logged in successfully.');
-        setLoginState(fieldsState)
+        navigate('/subscription')
       }
     } catch (error) {
       console.log(error);

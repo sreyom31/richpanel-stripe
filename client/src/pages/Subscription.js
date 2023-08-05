@@ -23,8 +23,6 @@ export default function Subscription() {
         );
       });
   }, []);
-  console.log(monthly);
-  console.log(annual);
   return (
     <section className="flex flex-col justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
       <div className="h-full">
@@ -58,11 +56,11 @@ export default function Subscription() {
           </div>
           <div className="flex gap-4">
             {!toggle
-              ? monthly.map((item) => {
-                  return <Card toggle={toggle} data={item} />;
+              ? monthly.map((item, index) => {
+                  return <Card key={index} toggle={toggle} data={item} />;
                 })
-              : annual.map((item) => {
-                  return <Card toggle={toggle} data={item} />;
+              : annual.map((item, index) => {
+                  return <Card key={index} toggle={toggle} data={item} />;
                 })}
           </div>
         </div>

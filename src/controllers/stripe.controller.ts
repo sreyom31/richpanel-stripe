@@ -29,7 +29,7 @@ const createCheckoutSession = async (req: Request, res: Response) => {
   if (!session) {
     throw new ApiError(httpStatus.NOT_FOUND, 'session not found');
   }
-  return session;
+  res.send(session);
 };
 
 const webhookHandler = async (req: Request, res: Response) => {
@@ -58,23 +58,22 @@ const webhookHandler = async (req: Request, res: Response) => {
 
   // Handle the event
   // Handle the checkout.session.completed event
-  // Handle the checkout.session.completed event
-  // if (eventType === 'checkout.session.completed') {
-  //   stripe.customers
-  //     .retrieve(data.customer)
-  //     .then(async (customer: any) => {
-  //       try {
-  //         console.log(customer);
-  //         console.log('data:', data);
-  //         // CREATE ORDER
-  //         // createOrder(customer, data);
-  //       } catch (err) {
-  //         // console.log(typeof createOrder);
-  //         console.log(err);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err.message));
-  // }
+  if (eventType === 'checkout.session.completed') {
+    stripe.customers
+      .retrieve(data.customer)
+      .then(async (customer: any) => {
+        try {
+          console.log(customer);
+          console.log('data:', data);
+          // CREATE ORDER
+          // createOrder(customer, data);
+        } catch (err) {
+          // console.log(typeof createOrder);
+          console.log(err);
+        }
+      })
+      .catch((err) => console.log(err.message));
+  }
 
   // Return a 200 response to acknowledge receipt of the event
   res.send(200).end();

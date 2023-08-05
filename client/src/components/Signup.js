@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { signupFields } from "../constants/formFields"
@@ -11,6 +12,7 @@ let fieldsState={};
 fields.forEach(field => fieldsState[field.id]='');
 
 export default function Signup(){
+  const navigate = useNavigate();
   const [signupState,setSignupState]=useState(fieldsState);
 
   const handleChange=(e)=>setSignupState({...signupState,[e.target.id]:e.target.value});
@@ -31,7 +33,7 @@ export default function Signup(){
         localStorage.setItem("User", JSON.stringify(res.data.user));
         localStorage.setItem("Token", String(res.data.tokens.access.token));
         toast.success("Registered successfully.");
-        setSignupState(fieldsState)
+        navigate("/login");
     }
     } catch (error) {
       console.log(error)

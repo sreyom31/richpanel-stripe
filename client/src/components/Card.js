@@ -1,4 +1,29 @@
+import axios from 'axios'
+import { toast } from 'react-toastify';
+
 export default function Card({data, toggle}) {
+  const handleCreateSession = async () => {
+    const user = JSON.parse(localStorage.getItem('User'))
+    axios
+    .post(`${process.env.REACT_APP_API_URL}/stripe/create-checkout-session`, {
+      planId: data.id,
+      userId: user.id,
+      priceId: data.priceId
+    })
+    .then((response) => {
+      if (response.data.url) {
+        console.log(response)
+        window.location.href = response.data.url;
+      }
+      else {
+        console.log()
+      }
+    })
+    .catch((err) => {
+      console.log(err.message)
+      toast.error('something went wrong!')
+    });
+  }
     return(
         <div className="relative col-span-full md:col-span-4 bg-white shadow-md rounded-sm border border-gray-200">
               <div
@@ -28,8 +53,8 @@ export default function Card({data, toggle}) {
                   </span>
                   <span className="text-gray-500 font-medium text-sm">{toggle ? <>/year </>: <>/month</>}</span>
                 </div>
-                <button className="font-medium text-sm inline-flex items-center justify-center px-3 py-2 border border-gray-200 rounded leading-5 shadow-sm transition duration-150 ease-in-out focus:outline-none focus-visible:ring-2 hover:border-gray-300 text-gray-600 w-full">
-                  Downgrade
+                <button onClick={handleCreateSession} className="font-medium text-sm inline-flex items-center justify-center px-3 py-2 border border-gray-200 rounded leading-5 shadow-sm transition duration-150 ease-in-out focus:outline-none focus-visible:ring-2 hover:border-gray-300 text-gray-600 w-full">
+                 Get Started 
                 </button>
               </div>
               <div className="px-5 pt-4 pb-5">
