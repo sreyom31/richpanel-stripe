@@ -88,7 +88,7 @@ const webhookHandler = async (req: Request, res: Response) => {
             active: true,
             subscriptionId: data.subscription,
             validTill:
-              amount < 10
+              amount < 1000
                 ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
                 : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
           });
