@@ -2,6 +2,8 @@ import httpStatus from 'http-status';
 import { Request, Response, response } from 'express';
 import ApiError from '../utils/ApiError';
 import config from '../config';
+import PaymentModel from '../models/payments/payment.model';
+import SubscriptionModel from '../models/subscriptions/subscription.model';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const stripe = require('stripe')(config.stripeSecretKey);
 
@@ -63,10 +65,38 @@ const webhookHandler = async (req: Request, res: Response) => {
       .retrieve(data.customer)
       .then(async (customer: any) => {
         try {
-          console.log(customer);
-          console.log('data:', data);
-          // CREATE ORDER
-          // createOrder(customer, data);
+          const amount = data.amount_subtotal / 100;
+
+          const payment = await PaymentModel.create({
+            user: customer.metadata.userId,
+            eventId: data.id,
+            invoiceId: data.invoice,
+            payment_status: data.status,
+            amount: amount,
+            currency: data.currency,
+          });
+          if (!payment)
+            throw new ApiError(
+              httpStatus.SERVICE_UNAVAILABLE,
+              'payment not created'
+            );
+
+          const subscription = await SubscriptionModel.create({
+            user: customer.metadata.userId,
+            paymentId: payment.id,
+            planId: customer.metadata.planId,
+            active: true,
+            subscriptionId: data.subscription,
+            validTill:
+              amount < 10
+                ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+                : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+          });
+          if (!subscription)
+            throw new ApiError(
+              httpStatus.SERVICE_UNAVAILABLE,
+              'subscription not created'
+            );
         } catch (err) {
           // console.log(typeof createOrder);
           console.log(err);

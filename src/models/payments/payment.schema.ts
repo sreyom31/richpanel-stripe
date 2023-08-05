@@ -25,7 +25,7 @@ const PaymentSchema = new Schema({
     type: Number,
   },
   currency: {
-    type: Number,
+    type: String,
   },
   dateOfEntry: {
     type: Date,

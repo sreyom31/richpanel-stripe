@@ -35,7 +35,7 @@ export type payment = {
   invoiceId: string;
   payment_status: string;
   amount: number;
-  currency: number;
+  currency: string;
 };
 
 export type paymentUpdate = {
@@ -44,7 +44,7 @@ export type paymentUpdate = {
   invoiceId?: string;
   payment_status?: string;
   amount?: number;
-  currency?: number;
+  currency?: string;
 };
 
 export type subscription = {
