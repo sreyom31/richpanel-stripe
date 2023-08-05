@@ -3,7 +3,8 @@ import { Document, Model } from 'mongoose';
 export interface IPlan {
   name: string;
   monthly: number;
-  yearly: number;
+  price: number;
+  priceId: string;
   videoQuality: string;
   resolution: string;
   screens: number;

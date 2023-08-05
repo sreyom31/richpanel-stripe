@@ -9,7 +9,7 @@ const router = Router();
 router
   .route('/')
   .post(auth(), validate(userValidation.createUser), userController.createUser)
-  .get(auth(), validate(userValidation.getUsers), userController.getUsers);
+  .get(validate(userValidation.getUsers), userController.getUsers);
 
 router
   .route('/:userId')

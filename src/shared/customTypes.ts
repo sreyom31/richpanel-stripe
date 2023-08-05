@@ -13,7 +13,7 @@ export type UserUpdate = {
 export type Plan = {
   name: string;
   monthly: number;
-  yearly: number;
+  price: number;
   videoQuality: string;
   resolution: string;
   screens: number;
@@ -23,7 +23,7 @@ export type Plan = {
 export type PlanUpdate = {
   name?: string;
   monthly?: number;
-  yearly?: number;
+  price?: number;
   videoQuality?: string;
   resolution?: string;
   screens?: number;

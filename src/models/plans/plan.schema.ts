@@ -9,12 +9,16 @@ const PlanSchema = new Schema({
     trim: true,
   },
   monthly: {
-    type: Number,
-    required: [true, 'Monthly Price is required'],
+    type: Boolean,
+    required: [true, 'Monthly is required'],
   },
-  yearly: {
+  price: {
     type: Number,
-    required: [true, 'Yearly Price is required'],
+    required: [true, 'Price is required'],
+  },
+  priceId: {
+    type: String,
+    required: [true, 'PriceId is required'],
   },
   videoQuality: {
     type: String,

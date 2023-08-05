@@ -4,8 +4,9 @@ import { Types } from 'mongoose';
 const createPlan = z.object({
   body: z.object({
     name: z.string().trim(),
-    monthly: z.number(),
-    yearly: z.number(),
+    monthly: z.boolean(),
+    price: z.number(),
+    priceId: z.string().trim(),
     videoQuality: z.string().trim(),
     resolution: z.string().trim(),
     screens: z.number(),
@@ -29,8 +30,9 @@ const getPlans = z.object({
   query: z
     .object({
       name: z.string().trim(),
-      monthly: z.number(),
-      yearly: z.number(),
+      monthly: z.boolean(),
+      price: z.number(),
+      priceId: z.string().trim(),
       videoQuality: z.string().trim(),
       resolution: z.string().trim(),
       screens: z.number(),
@@ -54,8 +56,9 @@ const updatePlan = z.object({
   body: z
     .object({
       name: z.string().trim(),
-      monthly: z.number(),
-      yearly: z.number(),
+      monthly: z.boolean(),
+      price: z.number(),
+      priceId: z.string().trim(),
       videoQuality: z.string().trim(),
       resolution: z.string().trim(),
       screens: z.number(),

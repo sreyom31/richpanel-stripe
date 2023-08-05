@@ -22,7 +22,7 @@ const getPlans = catchAsync(async (req: Request, res: Response) => {
   const filter = pick(req.query, [
     'name',
     'monthly',
-    'yearly',
+    'price',
     'videoQuality',
     'resolution',
     'screens',
