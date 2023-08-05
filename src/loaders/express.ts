@@ -2,6 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 import passport from 'passport';
+import bodyParser from 'body-parser';
 import { errorConverter, errorHandler } from '../middlewares/error';
 import authLimiter from '../middlewares/rateLimiter';
 import jwtStrategy from '../config/passport';
@@ -9,6 +10,7 @@ import ApiError from '../utils/ApiError';
 import config from '../config';
 import morgan from './morgan';
 import routes from '../routes';
+
 const xss = require('xss-clean');
 const compression = require('compression');
 const cors = require('cors');
@@ -22,6 +24,14 @@ export default ({ app }: { app: express.Application }) => {
 
   // set security HTTP headers
   app.use(helmet());
+
+  app.use(
+    bodyParser.json({
+      verify(req, res, buf) {
+        req.rawBody = buf;
+      },
+    })
+  );
 
   // parse json request body with limit
   app.use(express.json({ limit: '100kb' }));
