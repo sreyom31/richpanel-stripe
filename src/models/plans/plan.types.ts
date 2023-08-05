@@ -17,7 +17,7 @@ export interface IPlanDocument extends IPlan, Document {
   setLastUpdated: (this: IPlanDocument) => Promise<void>;
 }
 
-export interface IUserModel extends Model<IPlanDocument> {
+export interface IPlanModel extends Model<IPlanDocument> {
   paginate: (
     filter: any,
     options: any
