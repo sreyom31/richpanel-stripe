@@ -4,6 +4,7 @@ import ApiError from '../utils/ApiError';
 import config from '../config';
 import PaymentModel from '../models/payments/payment.model';
 import SubscriptionModel from '../models/subscriptions/subscription.model';
+import { subscriptionService } from '../services';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const stripe = require('stripe')(config.stripeSecretKey);
 
@@ -32,6 +33,31 @@ const createCheckoutSession = async (req: Request, res: Response) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'session not found');
   }
   res.send(session);
+};
+
+const cancelHandler = async (req: Request, res: Response) => {
+  try {
+    const canceledSubscription = await stripe.subscriptions.del(
+      req.body.subscriptionId
+    );
+
+    // If you need to perform any additional actions after cancellation, you can do it here
+    const subscription = await subscriptionService.updateSubscriptionById(
+      req.body.id,
+      {
+        active: 'false',
+        validTill: null,
+      }
+    );
+    if (subscription) {
+      res.status(200).send('Subscription updated Successfully');
+    }
+
+    return canceledSubscription;
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(`Failed while Cancelling: ${error.message}`);
+  }
 };
 
 const webhookHandler = async (req: Request, res: Response) => {
@@ -109,4 +135,4 @@ const webhookHandler = async (req: Request, res: Response) => {
   res.send(200).end();
 };
 
-export default { createCheckoutSession, webhookHandler };
+export default { createCheckoutSession, webhookHandler, cancelHandler };

@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import Card from '../components/Card';
+import { toast } from 'react-toastify';
 
 export default function Subscription() {
   const [monthly, setMonthly] = useState([]);
   const [annual, setAnnual] = useState([]);
   const [toggle, setToggle] = useState(false);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/plans`, {
+    fetch(`${process.env.REACT_APP_API_URL}/plans?sortBy=price`, {
       method: 'GET',
     })
       .then((res) => res.json())
@@ -21,7 +22,11 @@ export default function Subscription() {
             return item.monthly === false;
           })
         );
-      });
+      })
+      .catch(err => {
+        console.log(err.message);
+        toast.error('something went wrong');
+      })
   }, []);
   return (
     <section className="flex flex-col justify-center antialiased bg-gray-100 text-gray-600 min-h-screen p-4">
@@ -50,7 +55,7 @@ export default function Subscription() {
                 </label>
               </div>
               <div className="text-sm text-gray-500 font-medium min-w-[120px]">
-                Annually <span className="text-green-500">(-20%)</span>
+                Annually <span className="text-green-500">(-17%)🔥</span>
               </div>
             </div>
           </div>

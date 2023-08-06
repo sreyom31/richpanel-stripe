@@ -33,7 +33,7 @@ export default function Signup(){
         localStorage.setItem("User", JSON.stringify(res.data.user));
         localStorage.setItem("Token", String(res.data.tokens.access.token));
         toast.success("Registered successfully.");
-        navigate("/login");
+        navigate("/");
     }
     } catch (error) {
       console.log(error)

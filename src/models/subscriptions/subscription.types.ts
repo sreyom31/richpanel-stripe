@@ -1,9 +1,9 @@
 import { Document, Model, Types } from 'mongoose';
 
 export interface ISubscription {
-  paymentId: string;
+  paymentId: Types.ObjectId;
   user: Types.ObjectId;
-  planId: string;
+  planId: Types.ObjectId;
   active: string;
   subscriptionId: string;
   validTill: Date;

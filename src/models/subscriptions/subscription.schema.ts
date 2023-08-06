@@ -5,17 +5,18 @@ import { toJSON, paginate } from '../plugins';
 const SubscriptionSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
+    required: [true, 'UserId is required'],
     ref: 'user',
   },
   paymentId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: [true, 'PaymentId is required'],
-    trim: true,
+    ref: 'payment',
   },
   planId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: [true, 'PlanId is required'],
-    trim: true,
+    ref: 'plan',
   },
   active: {
     type: String,
@@ -44,11 +45,11 @@ SubscriptionSchema.plugin(toJSON);
 SubscriptionSchema.plugin(paginate);
 SubscriptionSchema.methods.setLastUpdated = setLastUpdated;
 SubscriptionSchema.pre('save', function (next: NextFunction) {
-  this.populate(['user']);
+  this.populate(['planId', 'paymentId']);
   next();
 });
 SubscriptionSchema.pre(/^find/, function (next: NextFunction) {
-  this.populate(['user']);
+  this.populate(['planId', 'paymentId']);
   next();
 });
 

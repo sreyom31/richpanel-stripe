@@ -12,5 +12,6 @@ router.post(
   express.raw({ type: 'application/json' }),
   stripeController.webhookHandler
 );
+router.post('/cancel', stripeController.cancelHandler);
 
 export default router;

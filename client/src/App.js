@@ -11,6 +11,7 @@ import LoginPage from './pages/Login';
 import Success from './pages/Success';
 import Fail from './pages/Fail';
 import Subscription from './pages/Subscription';
+import ManageCard from './pages/ManageCard'
 
 function App() {
   return (
@@ -19,10 +20,11 @@ function App() {
      <BrowserRouter>
         <Routes>
             <Route path='/subscription' element={<Subscription />} />
-            <Route path="/login" element={<LoginPage/>} />
+            <Route path="/" element={<LoginPage/>} />
             <Route path="/signup" element={<SignupPage/>} />
             <Route path="/checkout-success" element={<Success />} />
             <Route path="/checkout-failed" element={<Fail />} />
+            <Route path="/manage" element={<ManageCard/>} />
         </Routes>
       </BrowserRouter>
     </div>
