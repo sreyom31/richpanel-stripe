@@ -37,8 +37,10 @@ export default function ManageCard() {
       toast.error('something went wrong'); 
     }
   }
-
-  const date = new Date(subscription.validTill).toLocaleDateString()
+  let date
+  if(subscription && subscription.validTill !== null) {
+    date = new Date(subscription.validTill).toLocaleDateString()
+  }
 
   return (
     <div className="flex justify-center">
