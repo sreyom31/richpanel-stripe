@@ -49,6 +49,19 @@ export default ({ app }: { app: express.Application }) => {
   // enable cors
   app.use(cors());
 
+  app.get('/healthcheck', (req, res) => {
+    const healthcheck = {
+      uptime: process.uptime(),
+      message: 'OK',
+      timestamp: Date.now(),
+    };
+    try {
+      return res.json(healthcheck);
+    } catch (e) {
+      return res.status(503).send();
+    }
+  });
+
   // jwt authentication
   app.use(passport.initialize());
   passport.use('jwt', jwtStrategy);
