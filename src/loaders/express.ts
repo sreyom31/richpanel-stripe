@@ -27,8 +27,11 @@ export default ({ app }: { app: express.Application }) => {
 
   app.use(
     bodyParser.json({
-      verify(req, res, buf) {
-        req.rawBody = buf;
+      verify: function (req, res, buf) {
+        var url = req.originalUrl;
+        if (url.startsWith('/stripe')) {
+          req.rawBody = buf.toString();
+        }
       },
     })
   );
